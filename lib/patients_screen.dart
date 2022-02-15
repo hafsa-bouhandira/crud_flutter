@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-
 import 'api.dart';
 import 'no_patients.dart';
 
-// this is the patients screen , it is displayed when patients list is not empty 
+// this is the patients screen , it is displayed when patients list is not empty
 
 class PatientsScreen extends StatefulWidget {
   PatientsScreen({Key? key, required this.title}) : super(key: key);
 
   final String title;
-  final PatientsApi api = PatientsApi();
+  // final PatientsApi api = PatientsApi();
+  final fetchAlbum api = fetchAlbum();
 
   @override
   _PatientsScreenState createState() => _PatientsScreenState();
@@ -18,13 +18,13 @@ class PatientsScreen extends StatefulWidget {
 
 class _PatientsScreenState extends State<PatientsScreen> {
   List contacts = [
-    {'name': 'fisoooo'}
+    // {'name': 'fisoooo'}
   ];
   bool loading = true;
   @override
   void initState() {
     super.initState();
-    widget.api.getContacts().then((data) {
+    widget.api.getdata().then((data) {
       setState(() {
         contacts = data;
         loading = false;
@@ -80,9 +80,7 @@ class _PatientsScreenState extends State<PatientsScreen> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
-            onPressed: () {
-              // _loadContacts(true);
-            },
+            onPressed: initState,
             tooltip: 'Refresh list',
             backgroundColor: Colors.purple,
             child: Icon(Icons.refresh),

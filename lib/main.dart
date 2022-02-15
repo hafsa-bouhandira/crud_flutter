@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: PatientsScreen(title: 'Patients List Home Page'),
+      home: PatientsScreen(title: 'Patients List Home Pag1e'),
     );
   }
 }
