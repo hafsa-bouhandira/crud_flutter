@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 
 // this is the no patients view , we display it when our patients list is empty
 class NoPatients extends StatelessWidget {
-  //  final VoidCallback onAdd;
-
-  // NoPatients({this.onAdd});
+  final VoidCallback? onAdd;
+  NoPatients({this.onAdd});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,7 @@ class NoPatients extends StatelessWidget {
           SizedBox(height: 20),
           FlatButton(
             color: Colors.purple,
-            onPressed: () {},
+            onPressed: onAdd,
             child: Text(
               'Add your first',
               style: TextStyle(color: Colors.white),

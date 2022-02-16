@@ -1,28 +1,10 @@
-// import 'package:dio/dio.dart';
-
-// //import 'contact.dart';
-
-// class PatientsApi {
-// final _dio = Dio(BaseOptions(baseUrl: 'http://localhost:80/users'));
-
-//   // final baseUrl = 'http://localhost:8080/users';
-
-//   Future<List> getPatients() async {
-//     print(" XXXXXXXXXX TEEEEEEST XXXXXXXXXX");
-
-//     final response = await _dio.get('');
-//     print("*******2");
-//     // print(response.data);
-//     print("*******3");
-//     return (response.data);
-//   }
-// }
-
 import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:frontapp/patient.dart';
 import 'package:http/http.dart' as http;
+import 'patient.dart';
 
 class fetchAlbum {
   Future<List> getdata() async {
@@ -31,31 +13,41 @@ class fetchAlbum {
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
+      print("*****************");
       return jsonDecode(response.body);
+
+      // return jsonDecode(response.body);
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
       throw Exception('Failed to load album');
     }
   }
-}
 
-class Album {
-  final int userId;
-  final int id;
-  final String title;
+  Future<http.Response> deleteAlbum(String id) async {
+    final http.Response response = await http.delete(
+      Uri.parse('http://localhost:80/users/$id'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
 
-  const Album({
-    required this.userId,
-    required this.id,
-    required this.title,
-  });
+    return response;
+  }
 
-  factory Album.fromJson(Map<String, dynamic> json) {
-    return Album(
-      userId: json['userId'],
-      id: json['id'],
-      title: json['title'],
+  createAlbum(String name, String lastName, String age) {
+    print("*****************11");
+
+    final res = http.post(
+      Uri.parse('http://localhost:80/users'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        "name": name,
+        "lastName": lastName,
+        "age": age,
+      }),
     );
   }
 }
